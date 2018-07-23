@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block customcss %}
+
+{% endblock %}
+
+{% block MainBody %}
+ <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 my-5">
+      <div class="form-group">
+        <form class="form" action="{% url 'edit_profile' %}" method="post">
+         {% csrf_token %}
+          {% for field in user_info_form %}
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.errors }}
+            {% if field.help_text %}
+                <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
+            {% endif %}
+          {% endfor %}
+          <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        </form>
+      </div>
+    </div>
+     <div class="col-md-2"></div>
+
+{% endblock %}

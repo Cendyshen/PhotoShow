@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload a Photo{% endblock %}
+
+{% block customcss %}
+
+{% endblock %}
+
+{% block MainBody %}
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="card my-4" style="top:10%">
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <label class="custom-file">
+                <input type="file" id="upload_file" class="custom-file-input" name="image" onchange="OnFileChanged()" required>
+                <span id="upload_file_name" class="custom-file-control"></span>
+              </label>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="photo_name">Photo Name</label>
+            <input type="text" id="photo_name" name="photo_name" class="form-control" placeholder="Enter Photo Name">
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" class="custom-select d-block form-control" required>
+              <option value="">Choose from...</option>
+              <option value="1">Landscape</option>
+              <option value="2">Portraiture</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="remarks">Description</label>
+            <textarea id="remarks" name="photographer_remark" rows="5" class="form-control" placeholder="Enter Photo Description..."></textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary " >Submit</button>
+              <a  class="btn btn-primary" href="{% url 'album_scenery_new' %}" >Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+{% endblock %}
+
+{% block customjs %}
+<script>
+  function OnFileChanged() {
+    var file = document.getElementById('upload_file');
+    document.getElementById('upload_file_name').innerHTML = file.files.item(0).name;
+    document.getElementById('photo_name').value = file.files.item(0).name;
+  }
+</script>
+{% endblock %}

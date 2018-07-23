@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Add a Topic{% endblock %}
+
+{% block MainBody %}
+    <br>
+    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link " href="#" style="">Overview </a>
+                  <li class="nav-item">
+              <a class="nav-link active" href="/ShutterWeb/forum">Newest topic<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ShutterWeb/hot_topic">Hottest Topic</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ShutterWeb/add_topic">Add a topic</a>
+            </li>
+          </ul>
+        </nav>
+
+          <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+          <section class="row text-left placeholders">
+              <div class="col-8 col-sm-10 placeholder">
+        <!-- Post Content Column -->
+        <div class="col-lg-20" >
+            <br>
+          <!-- Title -->
+          <h1  >Create A new Topic Here</h1>
+          <!-- Author -->
+          <br><br>
+
+            <div class="card my-10" style="top:10% " >
+            <div class="card-body">
+              <form method="post">
+                  {% csrf_token %}
+                  <h3>Title</h3>
+                  <div class="form-group">
+                  <textarea class="form-control"  rows="2" name="title"></textarea>
+                 </div>
+
+                  <h3>Content</h3>
+
+                <div class="form-group">
+                  <textarea class="form-control" rows="10"  name="content"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+              </form>
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+      <!-- /.row -->
+      </div>
+          </section></main>
+    </div>
+    </div>
+    <!-- /.container -->
+{% endblock %}
+
+
+
+
+
+

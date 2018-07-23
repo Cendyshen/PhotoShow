@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block customcss %}
+
+{% endblock %}
+
+{% block MainBody %}
+{% load static %}
+
+<main role="main">
+
+<div id="T1" class="container"  >
+          <h1 class="jumbotron-heading">thumbs_up number now is {{ thumbs_up_number }}</h1>
+
+</div>
+<a href="/ShutterWeb/album/photo/{{ photo_id }}" class="btn btn-secondary">back</a>
+
+</main>
+
+
+{% endblock %}

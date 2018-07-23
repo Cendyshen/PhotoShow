@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Message Detail{% endblock %}
+
+{% block customcss %}
+
+{% endblock %}
+
+{% block MainBody %}
+<div class="container" style="margin-top: 0.75rem">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top text-center" src="..." alt="User Profile Picture">
+        <div class="card-body">
+          {% if talker %}
+          <h4 class="card-title text-center">{{talker}}</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <form method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-6">
+            <textarea id="messageContent" name="content" rows="5" class="form-control" placeholder="Say Something..." required></textarea>
+          </div>
+          <div class="col-md-2">
+            <img class="text-center" src="..." alt="{% if me %} {{me}} {% endif %}">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+              </div>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-3 text-right">
+            <button class="btn btn-secondary" type="submit" name="messageSend">Send</button>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </form>
+      <br>
+      {% if message %}
+      {% for m in message %}
+      {% if m.author == me %}
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-6">
+          <li class="list-group-item">{{m.content}}</li>
+        </div>
+        <div class="col-md-2">
+          <img class="text-center" src="..." alt="{{me}}">
+        </div>
+      </div>
+      <br>
+      {% endif %}
+      {% if m.receiver == me %}
+      <div class="row">
+        <div class="col-md-2">
+          <img class="text-center" src="..." alt="{{talker}}">
+        </div>
+        <div class="col-md-6">
+          <li class="list-group-item">{{m.content}}</li>
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+      <br>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

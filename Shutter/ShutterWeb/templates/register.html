@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block customcss %}
+<style>
+.tooltip-inner {
+  max-width: 400px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: left;
+  background-color: #000;
+  border-radius: 0.25rem;
+}
+</style>
+{% endblock %}
+
+{% block MainBody %}
+
+<form class="form" action="{% url 'register' %}" method="post">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-6 my-4">
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="text" id="inputEmail" name="email" class="form-control"
+               data-toggle="tooltip" data-placement="right" data-html="true"
+               title="Required">
+      </div>
+      <div class="form-group">
+        <label for="inputUsername">Username</label>
+        <input type="text" id="inputUsername" name="username" class="form-control"
+               data-toggle="tooltip" data-placement="right" data-html="true"
+               title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.">
+      </div>
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" id="inputPassword" name="password1" class="form-control"
+               data-toggle="tooltip" data-placement="right" data-html="true"
+               title="1. Your password can&#39;t be too similar to your other personal information.<br>
+               2. Your password contain at least 8 characters.<br>
+               3. Your password can&#39;t be a commonly used password.<br>
+               4. Your password can&#39;t be entirely numeric.">
+      </div>
+      <div class="form-group">
+        <label for="inputPasswordConfirm">Password confirmation</label>
+        <input type="password" id="inputPasswordConfirm" name="password2" class="form-control"
+               data-toggle="tooltip" data-placement="right" data-html="true"
+               title="Enter the same password as before, for verification.">
+      </div>
+      {% if form.errors %}
+      <div class="form-group">
+        <label class="form-control alert alert-warning">Register Errors: <br>{{ form.errors }}</label>
+      </div>
+      {% endif %}
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">SignUp</button>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</form>
+{% endblock %}
+
+{% block customjs %}
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+{% endblock %}

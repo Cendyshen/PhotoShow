@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block customcss %}
+
+{% endblock %}
+
+{% block MainBody %}
+ <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 my-5">
+      <div class="form-group">
+          <ul class="list-group">
+              <h2>User Profile</h2>
+  <li class="list-group-item">Username: {{request.user.username}}</li>
+  <li class="list-group-item">Gender: {{request.user.gender}}</li>
+  <li class="list-group-item">Email: {{request.user.email}}</li>
+  <li class="list-group-item">Address: {{request.user.address}}</li>
+  <li class="list-group-item">Register date: {{request.user.date_joined}}</li>
+  <li class="list-group-item">Last login date: {{request.user.last_login}}</li>
+</ul>
+
+          <a class="btn btn-primary" href="{% url 'password_change' %}" role="button">Change password</a>
+          <a class="btn btn-primary" href="{% url 'edit_profile' %}" role="button">Edit Profile</a>
+
+
+{% endblock %}
