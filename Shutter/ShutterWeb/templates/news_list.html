@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Inbox{% endblock %}
+{% block title %}News{% endblock %}
 
 {% block customcss %}
 
@@ -8,108 +8,48 @@
 
 {% block MainBody %}
 
-<br><br><br><br>
-<div class="container" style="margin-top: 0.75rem">
-    <div class="row">
-        </div>
-    </div>
-    <br>
-{% for news in all_news.object_list %}
-<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{news.title}}</h5>
-      <small>{{news.time}}</small>
-    </div>
-    <p class="mb-1">{{news.description}}</p>
-    <small>read more...</small>
-  </a>
-</div>
-{% endfor %}
-    <br>
-    <div class="row">
-        <div class="col-lg-12">
-            <nav aria-label="Page navigation">
-              <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    {% if all_news.has_previous %}
-                  <a class="page-link" href="?{{ all_news.previous_page_number.querystring }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                  {% else %}
-                  <li class="page-item disabled">
-                  <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                  </a>
-                  </li>
-                    {% endif %}
-                    {% for page in all_news.pages %}
-                    {% if page %}
-                    {% ifequal page all_news.number %}
-                    <li class="page-item active"><a class="page-link" href="?{{ page.querystring }}">{{ page }}<span class="sr-only">(current)</span></a></li>
-                    {% else %}
-                    <li class="page-item"><a class="page-link" href="?{{ page.querystring }}">{{ page }}</a></li>
-                    {% endifequal %}
-                    {% endif %}
-                    {% endfor %}
-                    {% if all_news.has_next %}
-                  <li class="page-item">
-                  <a class="page-link" href="?{{ all_news.next_page_number.querystring }}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-                    {% else %}
-                  <li class="page-item disabled">
-                      <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                          <span class="sr-only">Next</span>
-                      </a>
-                  </li>
-                    {% endif %}
-              </ul>
-            </nav>
-        </div>
+  <div>
+       <br>
+
+         <table class="table">
+           <tbody>
+            {% if latest_news %}
+                    <thead>
+                 <tr>
+                    <th>News Title</th>
+                     <th>Author</th>
+                     <th>Public Time</th>
+                     <th>Remarks</th>
+                     <th>Description</th>
+                 </tr>
+                   </thead>
+                {% for t in latest_news %}
+                 <tr scope="row">
+                <th>
+                    <li><a href="/ShutterWeb/news_content/{{ t.id }}/">{{ t.title }}</a></li>
+                </th>
+                     <td>
+                    {{t.author}}
+                    </td>
+                    <td>
+                    {{ t.time }}
+                    </td>
+                     <td>
+                    {{ t.remarks }}
+                     </td>
+                     <td>
+                    {{ t.description }}
+                     </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <p>No news is available.</p>
+            {% endif %}
+     </tbody>
+     </table>
+
+
+
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <div class="row">
-                  <div class="col-md-12">
-                    <div class="input-group">
-                      <span class="input-group-addon" id="basic-addon1">TO</span>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-12">
-                      <label for="messageContent">Content</label>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-12">
-                      <textarea id="messageContent" rows="5" class="form-control" placeholder="Say Something..." required></textarea>
-                  </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send</button>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
 {% endblock %}

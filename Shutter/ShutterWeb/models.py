@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 import os
 
 
-# Create your models here.
+# Create your  models here.
 
 class UserProfile(AbstractUser):
     gender = models.CharField(max_length=6, choices=(("male",u"male"),("female",u"female"),("secret", u"secret")), default="secret")
@@ -80,6 +80,8 @@ class News(models.Model):
         description = models.CharField(max_length=100, null=True, blank=True)
         remarks = models.CharField(max_length=500, null=True, blank=True)
 
+        def __str__(self):
+            return self.title
 
 class NewsComment(models.Model):
         topic = models.ForeignKey('News', on_delete=models.CASCADE, null=True,

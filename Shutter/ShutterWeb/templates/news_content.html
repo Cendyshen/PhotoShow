@@ -1,10 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}News{% endblock %}
+
+{% block customcss %}
+
+
+<div class="blog-header">
+        <div class="container">
+            <br><br>
+
+          <h1 class="blog-title">{{ news.title }}</h1>
+            <p class="blog-post-meta">{{news.time}} by <a>{{news.author}}</a></p>
+            {%if request.user.is_superuser%}
+            <button type="button" class="btn btn-link"  onclick="window.location.href='/admin/ShutterWeb/news/{{news.id}}/change/'" >Edit news</button>
+            {%else%}
+            {%endif%}
+        </div>
+      </div>
+
+    <div role="main" >
+    <div class="row">
+        <div class="container">
+        <div class="col-sm-10 blog-main">
+            <br><br>
+          <div class="blog-post">
+            {{ news.content }}
+          </div>
+
+
+
+
+
+          <!-- Comments Form -->
+          <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+              <form method="post">
+                  {% csrf_token %}
+                <div class="form-group">
+                  <textarea class="form-control" rows="3" name="content"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+              </form>
+            </div>
+          </div>
+
+            {% for comment in NewsComments %}
+              <div class="media mt-4">
+
+                <img class="d-flex mr-3 rounded-circle " width="70" src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0">Commenter: {{ comment.author }}</h5>
+                    {%if request.user.is_superuser%}
+                    <button type="button" class="btn btn-link"  onclick="window.location.href='/admin/ShutterWeb/newscomment/{{comment.id}}/change/'" >Edit comment</button>
+                    {%else%}
+                    {%endif%}
+                 <div class="comment-field" style="padding-top: 10px;">
+              {{ comment.content }}
+               </div>
+                    <p class="text-right"><small>{{ comment.time }}</small></p>
+                </div>
+                      <hr>
+              </div>
+            {% endfor %}
+
+            </div>
+
+        </div>
+
+     </div>
+
+    </div>
+
+{% endblock %}
+
+

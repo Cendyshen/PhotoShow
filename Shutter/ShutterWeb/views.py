@@ -6,15 +6,10 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Topic, Topiccomment, Message, Photo, PhotoComment, UserProfile
-from .forms import CommentForm, TopicForm, RegisterForm, photoForm, photocommentForm, messageSendForm, UserInfoForm
+from .models import Topic, Topiccomment, Message, Photo, PhotoComment, UserProfile, News, NewsComment;
+from .forms import CommentForm, TopicForm, RegisterForm, photoForm, photocommentForm, messageSendForm, UserInfoForm, NewsCommentForm;
 from . import filters
-
-
-from .models import Topic, Topiccomment
 from .forms import CommentForm, TopicForm,photoForm,photocommentForm
-
-from .models import News, NewsComment
 
 # index, index.html will be redirect to album_scenery_new
 def index(request):
@@ -89,20 +84,24 @@ def add_topic(request):
         form = TopicForm()
     return render(request, 'add_topic.html', {'form': form})
 
+
+
 def news_list(request):
-    all_news = News.objects.all().order_by("-time")
+    latest_news_list = News.objects.all()
+    # latest_news_list = News.objects.all().order_by("-time")
+    paginator = Paginator(latest_news_list, 5) # Show 25 contacts per page
+    page = request.GET.get('page')
     try:
-        page = request.GET.get('page', 1)
+        latest_news = paginator.page(page)
     except PageNotAnInteger:
-        page = 1
+        # If page is not an integer, deliver first page.
+        latest_news = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        latest_news = paginator.page(paginator.num_pages)
+    context = {'latest_news': latest_news}
+    return render(request, 'news_list.html', context)
 
-    p = Paginator(all_news, 5, request=request)
-
-    one_news = p.page(page)
-
-    return render(request, 'news_list.html', {
-        'all_news': one_news
-    })
 
 
 def news_content(request, news_id):
@@ -427,13 +426,6 @@ def thumbs_up(request, photo_id):
     this_photo = photo[0]
     this_photo.increase_thumbs_up()
     return redirect('/ShutterWeb/album/photo/' + str(this_photo.id))
-
-def news_list(request):
-    all_news = News .objects.all()
-
-    return render(request, 'news_list.html',{
-        'all_news' : all_news
-    })
 
 def user_login(request):
     if request.method == "POST":

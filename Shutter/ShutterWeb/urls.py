@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^message_detail/(?P<message_id>[0-9]+)/$', views.message_detail, name='message_detail'),
 
     # news
-    url(r'^news/$', views.news_list, name='news_list'),
+    # url(r'^news/$', views.news_list, name='news_list'),
     url(r'^news_content/(?P<news_id>[0-9]+)/$', views.news_content, name='news_content'),
     url(r'^news_list/$', views.news_list, name='news_list'),
 
