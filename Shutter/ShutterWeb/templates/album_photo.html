@@ -19,9 +19,6 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <!--<img class="first-slide"
-          src="http://knowledge.wharton.upenn.edu/wp-content/uploads/2017/09/092817_cameralens.jpg"
-          width="100%" height="400px" alt="First slide">-->
           <img class="first-slide" src="{% static 'images/background1.jpeg'%}"  width="100%" height="500px" alt="First slide">
           <div class="container">
             <div class="carousel-caption text-left">
@@ -96,9 +93,9 @@
   <div class="album">
     <div class="container">
       <div class="row">
-        <h1 class="col-lg-8 text-muted">
-          {{ category }}
-        </h1>
+{#        <h1 class="col-lg-8 text-muted">#}
+{#          {{ category }}#}
+{#        </h1>#}
         {% if photographer_name == request.user.username %}
         <div class="col-lg-2">
           <button type="button" class="btn btn-primary" data-toggle="modal"

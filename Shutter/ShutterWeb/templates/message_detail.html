@@ -10,14 +10,15 @@
 <div class="container" style="margin-top: 0.75rem">
   <div class="row">
     <div class="col-md-3">
-      <div class="card">
-        <img class="card-img-top text-center" src="..." alt="User Profile Picture">
-        <div class="card-body">
+{#      <div class="card">#}
+        <div>
+        <img  src="/static/images/album/hqdefault.jpg" width="100px" height="100px"  alt="User Profile Picture">
+{#        <div class="card-body">#}
+        <div></div>
           {% if talker %}
           <h4 class="card-title text-center">{{talker}}</h4>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+{#          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
           {% endif %}
-        </div>
       </div>
     </div>
     <div class="col-md-9">
@@ -26,10 +27,10 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-6">
-            <textarea id="messageContent" name="content" rows="5" class="form-control" placeholder="Say Something..." required></textarea>
+            <textarea id="messageContent" name="content"  rows="5" class="form-control" placeholder="Say Something..." required></textarea>
           </div>
           <div class="col-md-2">
-            <img class="text-center" src="..." alt="{% if me %} {{me}} {% endif %}">
+            <img class="text-center" src="/static/images/album/wallpapers.jpg" width="100px" height="100px" alt="{% if me %} {{me}} {% endif %}">
           </div>
         </div>
         <br>
@@ -59,7 +60,7 @@
           <li class="list-group-item">{{m.content}}</li>
         </div>
         <div class="col-md-2">
-          <img class="text-center" src="..." alt="{{me}}">
+          <img class="text-center" src="/static/images/album/wallpapers.jpg" width="60px" height="60px" alt="{{me}}">
         </div>
       </div>
       <br>
@@ -67,7 +68,7 @@
       {% if m.receiver == me %}
       <div class="row">
         <div class="col-md-2">
-          <img class="text-center" src="..." alt="{{talker}}">
+          <img class="text-center" src="/static/images/album/hqdefault.jpg" width="60px" height="60px" alt="{{talker}}">
         </div>
         <div class="col-md-6">
           <li class="list-group-item">{{m.content}}</li>
